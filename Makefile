@@ -21,7 +21,7 @@ libmlx.a :
 clean :
 	make fclean -C ./libft
 	make clean -C ./mlx
-	rm fract-ol
+	rm $(NAME)
 
 fclean :	clean
 
