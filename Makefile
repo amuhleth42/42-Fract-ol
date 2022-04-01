@@ -1,10 +1,10 @@
-NAME		= fract-ol
+NAME		= fractol
 
-FLAGS		= -Wall -Wextra -Werror
+FLAGS		= -Wall -Wextra -Werror -Ofast
 INCL		= -I. -I./mlx -I./libft
 LIB			= -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS		=
+SRCS		= test.c
 
 
 all :		$(NAME)
