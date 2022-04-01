@@ -41,8 +41,9 @@ typedef struct s_view
 	double	ymin;
 	double	ymax;
 	double	zoom;
-	int		offsetx;
-	int		offsety;
+	double	offsetx;
+	double	offsety;
+	t_z		mouse;
 }			t_view;
 
 typedef struct s_data

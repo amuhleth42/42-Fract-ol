@@ -32,8 +32,8 @@ int	mandelbrot(t_data *a, int x, int y)
 	double	tmp;
 
 	(void) a;
-	c.r = (double)x / WIN_HEIGHT * (a->view.xmax - a->view.xmin) / a->view.zoom + a->view.xmin;
-	c.i = (double)y / WIN_HEIGHT * (a->view.ymax - a->view.ymin) / a->view.zoom + a->view.ymin;
+	c.r = (double)x / WIN_HEIGHT * (a->view.xmax - a->view.xmin) / a->view.zoom + a->view.xmin + a->view.offsetx;
+	c.i = (double)y / WIN_HEIGHT * (a->view.ymax - a->view.ymin) / a->view.zoom + a->view.ymin + a->view.offsety;
 	z.r = 0;
 	z.i = 0;
 	i = 0;
@@ -60,7 +60,7 @@ void	fill_image(t_data *a)
 	int	x;
 	int	res;
 
-	a->iter_max = 50 * a->view.zoom;
+	a->iter_max = 40;
 	clear_img(&a->i);
 	y = 0;
 	while (y < WIN_HEIGHT)
@@ -85,8 +85,8 @@ void	init_zoom(t_data *a)
 	a->view.ymin = -1.2;
 	a->view.ymax = 1.2;
 	a->view.zoom = 1.0;
-	a->view.offsetx = WIN_WIDTH / 2;
-	a->view.offsety = WIN_HEIGHT / 2;
+	a->view.offsetx = -1.0;
+	a->view.offsety = -1.0;
 }
 
 int	key_hook(int key, t_data *a)
@@ -100,18 +100,37 @@ int	key_hook(int key, t_data *a)
 	return (0);
 }
 
+void	zoom(t_data *a, int x, int y, double i)
+{
+	double	w;
+	double	h;
+	double	new_w;
+	double	new_h;
+
+	w = (a->view.xmax - a->view.xmin) * a->view.zoom;
+	h = (a->view.ymax - a->view.ymin) * a->view.zoom;
+	new_w = (a->view.xmax - a->view.xmin) * a->view.zoom * i;
+	new_h = (a->view.ymax - a->view.ymin) * a->view.zoom * i;
+	a->view.offsetx -= (x / WIN_WIDTH) * (new_w - w);
+	a->view.offsety -= (y / WIN_HEIGHT) * (new_h - h);
+	a->view.zoom *= i;
+}
+
 int	mouse_down(int button, int x, int y, t_data *a)
 {
 	(void) x;
 	(void) y;
+
 	if (button == SCROLL_UP)
 	{
-		a->view.zoom *= 1.0 + 0.1;
+		zoom(a, x, y, 1.0 + 0.1);
+		//a->view.zoom *= 1.0 + 0.1;
 		printf("%f\n", a->view.zoom);
 	}
 	if (button == SCROLL_DOWN)
 	{
-		a->view.zoom *= 1.0 - 0.1;
+		zoom(a, x, y, 1.0 - 0.1);
+		//a->view.zoom *= 1.0 - 0.1;
 		printf("zoom : %f\n", a->view.zoom);
 	}
 	fill_image(a);
