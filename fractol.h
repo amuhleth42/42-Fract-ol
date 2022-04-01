@@ -46,12 +46,22 @@ typedef struct s_view
 	t_z		mouse;
 }			t_view;
 
+typedef struct s_mouse
+{
+	int	left_down;
+	int	x;
+	int	y;
+	int	lastx;
+	int	lasty;
+}		t_mouse;
+
 typedef struct s_data
 {
 	void	*mlx;
 	void	*win;
 	t_img	i;
 	t_view	view;
+	t_mouse	mouse;
 	int		iter_max;
 }			t_data;
 
