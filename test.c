@@ -128,9 +128,6 @@ void	zoom(t_data *a, int x, int y, double i)
 
 int	mouse_down(int button, int x, int y, t_data *a)
 {
-	(void) x;
-	(void) y;
-
 	if (button == SCROLL_UP)
 	{
 		zoom(a, x, y, 1.0 + 0.1);
