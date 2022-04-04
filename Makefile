@@ -4,7 +4,7 @@ FLAGS		= -Wall -Wextra -Werror -Ofast
 INCL		= -I. -I./mlx -I./libft
 LIB			= -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS		= test.c
+SRCS		= color_test.c
 
 
 all :		$(NAME)
