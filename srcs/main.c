@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/28 17:42:01 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/02/28 17:42:12 by amuhleth         ###   ########.fr       */
+/*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
+/*   Updated: 2022/04/05 15:45:50 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-#include <stdio.h>
-
-void	put_pixel_to_img(t_img *i, int x, int y, int color)
-{
-	char	*dst;
-
-	if (0 <= x && x < WIN_WIDTH && 0 <= y && y < WIN_HEIGHT)
-	{
-		dst = i->addr + (y * i->ll + x * (i->bpp / 8));
-		*(unsigned int *)dst = color;
-	}
-}
 
 t_z	convert_pixel_to_z(t_data *a, int x, int y)
 {
@@ -33,7 +21,7 @@ t_z	convert_pixel_to_z(t_data *a, int x, int y)
 	return (p);
 }
 
-int	mandelbrot(t_data *a, int x, int y)
+void	mandelbrot(t_data *a, int x, int y)
 {
 	t_z		c;
 	t_z		z;
@@ -52,9 +40,8 @@ int	mandelbrot(t_data *a, int x, int y)
 		z.i = 2 * z.i * tmp + c.i;
 		i++;
 	}
-	if (i == a->iter_max)
-		return (1);
-	return (0);
+	if (i != a->iter_max)
+		put_pixel_to_img(&a->i, x, y, get_color(COLOR1, COLOR2, (float)i / a->iter_max));
 }
 
 void	clear_img(t_img *i)
@@ -66,7 +53,6 @@ void	fill_image(t_data *a)
 {
 	int	y;
 	int	x;
-	int	res;
 
 	a->iter_max = 40;
 	clear_img(&a->i);
@@ -76,9 +62,7 @@ void	fill_image(t_data *a)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			res = mandelbrot(a, x, y);
-			if (res)
-				put_pixel_to_img(&a->i, x, y, 0xFFFFFF);
+			mandelbrot(a, x, y);
 			x++;
 		}
 		y++;
@@ -95,17 +79,6 @@ void	init_zoom(t_data *a)
 	a->view.zoom = 1.0;
 	a->view.offsetx = -0.5;
 	a->view.offsety = 0;
-}
-
-int	key_hook(int key, t_data *a)
-{
-	if (key == 53)
-	{
-		mlx_destroy_image(a->mlx, a->i.img);
-		mlx_destroy_window(a->mlx, a->win);
-		exit(EXIT_SUCCESS);
-	}
-	return (0);
 }
 
 void	zoom(t_data *a, int x, int y, double i)
@@ -126,29 +99,9 @@ void	zoom(t_data *a, int x, int y, double i)
 	//printf("%f\n", a->view.offsety);
 }
 
-int	mouse_down(int button, int x, int y, t_data *a)
-{
-	if (button == SCROLL_UP)
-	{
-		zoom(a, x, y, 1.0 + 0.1);
-		//a->view.zoom *= 1.0 + 0.1;
-		//printf("%f\n", a->view.zoom);
-	}
-	if (button == SCROLL_DOWN)
-	{
-		zoom(a, x, y, 1.0 - 0.1);
-		//a->view.zoom *= 1.0 - 0.1;
-		//printf("zoom : %f\n", a->view.zoom);
-	}
-	fill_image(a);
-
-	return (0);
-}
-
 /*int	mouse_move(int x, int y, t_data *a)
 {
 }*/
-
 int	main(void)
 {
 	t_data	a;

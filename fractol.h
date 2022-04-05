@@ -8,6 +8,9 @@
 # define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
+# define COLOR1 0xFF2C3C
+# define COLOR2 0xB166E1
+
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
 
@@ -64,5 +67,21 @@ typedef struct s_data
 	t_mouse	mouse;
 	int		iter_max;
 }			t_data;
+
+void	put_pixel_to_img(t_img *i, int x, int y, int color);
+
+int		key_hook(int key, t_data *a);
+int		mouse_down(int button, int x, int y, t_data *a);
+
+t_z		convert_pixel_to_z(t_data *a, int x, int y);
+
+void	mandelbrot(t_data *a, int x, int y);
+
+void	clear_img(t_img *i);
+void	fill_image(t_data *a);
+
+void	zoom(t_data *a, int x, int y, double i);
+
+int		get_color(int c1, int c2, float shade);
 
 #endif

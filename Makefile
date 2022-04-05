@@ -4,7 +4,13 @@ FLAGS		= -Wall -Wextra -Werror -Ofast
 INCL		= -I. -I./mlx -I./libft
 LIB			= -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS		= color_test.c
+SRCS		= $(addprefix srcs/,	\
+			  main.c				\
+			  draw.c				\
+			  mouse.c				\
+			  color.c				\
+			  keyboard.c)
+
 
 
 all :		$(NAME)
