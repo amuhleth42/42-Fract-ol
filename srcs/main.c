@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 15:45:50 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 16:01:48 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,6 @@ t_z	convert_pixel_to_z(t_data *a, int x, int y)
 	p.r = ((double)x / WIN_HEIGHT) * (a->view.xmax - a->view.xmin) / a->view.zoom + a->view.xmin + a->view.offsetx;
 	p.i = ((double)y / WIN_HEIGHT) * (a->view.ymax - a->view.ymin) / a->view.zoom + a->view.ymin + a->view.offsety;
 	return (p);
-}
-
-void	mandelbrot(t_data *a, int x, int y)
-{
-	t_z		c;
-	t_z		z;
-	int		i;
-	double	tmp;
-
-	(void) a;
-	c = convert_pixel_to_z(a, x, y);
-	z.r = 0;
-	z.i = 0;
-	i = 0;
-	while (i < a->iter_max && z.r * z.r + z.i * z.i < 4)
-	{
-		tmp = z.r;
-		z.r = z.r * z.r - z.i * z.i + c.r;
-		z.i = 2 * z.i * tmp + c.i;
-		i++;
-	}
-	if (i != a->iter_max)
-		put_pixel_to_img(&a->i, x, y, get_color(COLOR1, COLOR2, (float)i / a->iter_max));
 }
 
 void	clear_img(t_img *i)
@@ -62,7 +39,8 @@ void	fill_image(t_data *a)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			mandelbrot(a, x, y);
+			julia(a, x, y);
+			//mandelbrot(a, x, y);
 			x++;
 		}
 		y++;
@@ -111,6 +89,8 @@ int	main(void)
 	a.i.img = mlx_new_image(a.mlx, WIN_WIDTH, WIN_HEIGHT);
 	a.i.addr = mlx_get_data_addr(a.i.img, &a.i.bpp, &a.i.ll, &a.i.endian);
 	init_zoom(&a);
+	a.c_julia.r = 0.285;
+	a.c_julia.i = 0.01;
 	fill_image(&a);
 	//mlx_put_image_to_window(a.mlx, a.win, a.i.img, 0, 0);
 	mlx_key_hook(a.win, &key_hook, &a);

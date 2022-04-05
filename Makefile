@@ -9,6 +9,7 @@ SRCS		= $(addprefix srcs/,	\
 			  draw.c				\
 			  mouse.c				\
 			  color.c				\
+			  fractals.c			\
 			  keyboard.c)
 
 
