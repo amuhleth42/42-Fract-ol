@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:17:14 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 15:18:14 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:33:06 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,9 @@ void	put_pixel_to_img(t_img *i, int x, int y, int color)
 		dst = i->addr + (y * i->ll + x * (i->bpp / 8));
 		*(unsigned int *)dst = color;
 	}
+}
+
+void	clear_img(t_img *i)
+{
+	ft_bzero(i->addr, WIN_WIDTH * WIN_HEIGHT * i->bpp / 8);
 }

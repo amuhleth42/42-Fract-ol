@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:49:13 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 17:22:34 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:57:25 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	animation_julia(t_data *a, double r, double i)
 	ii += i;
 	a->c_julia.r = cos(rr);
 	a->c_julia.i = sin(ii);
-	printf("c.r = %f\n", a->c_julia.r);
-	printf("c.i = %f\n", a->c_julia.i);
+	//printf("c.r = %f\n", a->c_julia.r);
+	//printf("c.i = %f\n", a->c_julia.i);
 }
 
 void	julia(t_data *a, int x, int y)

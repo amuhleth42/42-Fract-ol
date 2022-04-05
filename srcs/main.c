@@ -6,52 +6,11 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 17:43:45 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 18:36:14 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
-t_z	convert_pixel_to_z(t_data *a, int x, int y)
-{
-	t_z	p;
-
-	p.r = ((double)x / WIN_HEIGHT) * (a->view.xmax - a->view.xmin) / a->view.zoom + a->view.xmin + a->view.offsetx;
-	p.i = ((double)y / WIN_HEIGHT) * (a->view.ymax - a->view.ymin) / a->view.zoom + a->view.ymin + a->view.offsety;
-	return (p);
-}
-
-void	clear_img(t_img *i)
-{
-	ft_bzero(i->addr, WIN_WIDTH * WIN_HEIGHT * i->bpp / 8);
-}
-
-void	render(t_data *a)
-{
-	int	y;
-	int	x;
-
-	a->iter_max = 40;
-	clear_img(&a->i);
-	if (a->view.animation)
-	{
-		usleep(200);
-		animation_julia(a, 0.01, 0.01);
-	}
-	y = 0;
-	while (y < WIN_HEIGHT)
-	{
-		x = 0;
-		while (x < WIN_WIDTH)
-		{
-			julia(a, x, y);
-			//mandelbrot(a, x, y);
-			x++;
-		}
-		y++;
-	}
-	mlx_put_image_to_window(a->mlx, a->win, a->i.img, 0, 0);
-}
 
 int	loop_render(t_data *a)
 {
@@ -71,31 +30,19 @@ void	init_view(t_data *a)
 	a->view.animation = 0;
 }
 
-void	zoom(t_data *a, int x, int y, double i)
+void	handle_no_arg(void)
 {
-	double	w;
-	double	h;
-	double	new_w;
-	double	new_h;
-
-	w = (a->view.xmax - a->view.xmin) / a->view.zoom;
-	h = (a->view.ymax - a->view.ymin) / a->view.zoom;
-	new_w = (a->view.xmax - a->view.xmin) / a->view.zoom / i;
-	new_h = (a->view.ymax - a->view.ymin) / a->view.zoom / i;
-	a->view.offsetx -= ((double)x / WIN_HEIGHT) * (new_w - w);
-	a->view.offsety -= ((double)y / WIN_HEIGHT) * (new_h - h);
-	a->view.zoom *= i;
-	//printf("%f\n", a->view.offsetx);
-	//printf("%f\n", a->view.offsety);
+	//to do print error help message
+	exit(EXIT_SUCCESS);
 }
 
-/*int	mouse_move(int x, int y, t_data *a)
-{
-}*/
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	a;
 
+	(void) argv;
+	if (argc != 2)
+		handle_no_arg();
 	a.mlx = mlx_init();
 	a.win = mlx_new_window(a.mlx, WIN_WIDTH, WIN_HEIGHT, "FRACTOL");
 	a.i.img = mlx_new_image(a.mlx, WIN_WIDTH, WIN_HEIGHT);
