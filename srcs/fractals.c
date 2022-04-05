@@ -6,11 +6,12 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:49:13 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 16:00:15 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:22:34 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+#include <stdio.h>
 
 void	mandelbrot(t_data *a, int x, int y)
 {
@@ -33,6 +34,19 @@ void	mandelbrot(t_data *a, int x, int y)
 	}
 	if (i != a->iter_max)
 		put_pixel_to_img(&a->i, x, y, get_color(COLOR1, COLOR2, (float)i / a->iter_max));
+}
+
+void	animation_julia(t_data *a, double r, double i)
+{
+	static double	rr;
+	static double	ii;
+
+	rr += r;
+	ii += i;
+	a->c_julia.r = cos(rr);
+	a->c_julia.i = sin(ii);
+	printf("c.r = %f\n", a->c_julia.r);
+	printf("c.i = %f\n", a->c_julia.i);
 }
 
 void	julia(t_data *a, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 16:01:48 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/05 17:43:45 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,18 @@ void	clear_img(t_img *i)
 	ft_bzero(i->addr, WIN_WIDTH * WIN_HEIGHT * i->bpp / 8);
 }
 
-void	fill_image(t_data *a)
+void	render(t_data *a)
 {
 	int	y;
 	int	x;
 
 	a->iter_max = 40;
 	clear_img(&a->i);
+	if (a->view.animation)
+	{
+		usleep(200);
+		animation_julia(a, 0.01, 0.01);
+	}
 	y = 0;
 	while (y < WIN_HEIGHT)
 	{
@@ -48,7 +53,13 @@ void	fill_image(t_data *a)
 	mlx_put_image_to_window(a->mlx, a->win, a->i.img, 0, 0);
 }
 
-void	init_zoom(t_data *a)
+int	loop_render(t_data *a)
+{
+	render(a);
+	return (0);
+}
+
+void	init_view(t_data *a)
 {
 	a->view.xmin = -2.1;
 	a->view.xmax = 0.6;
@@ -57,6 +68,7 @@ void	init_zoom(t_data *a)
 	a->view.zoom = 1.0;
 	a->view.offsetx = -0.5;
 	a->view.offsety = 0;
+	a->view.animation = 0;
 }
 
 void	zoom(t_data *a, int x, int y, double i)
@@ -88,13 +100,13 @@ int	main(void)
 	a.win = mlx_new_window(a.mlx, WIN_WIDTH, WIN_HEIGHT, "FRACTOL");
 	a.i.img = mlx_new_image(a.mlx, WIN_WIDTH, WIN_HEIGHT);
 	a.i.addr = mlx_get_data_addr(a.i.img, &a.i.bpp, &a.i.ll, &a.i.endian);
-	init_zoom(&a);
-	a.c_julia.r = 0.285;
-	a.c_julia.i = 0.01;
-	fill_image(&a);
-	//mlx_put_image_to_window(a.mlx, a.win, a.i.img, 0, 0);
+	init_view(&a);
+	animation_julia(&a, 3.3, 3.3);
+	//render(&a);
 	mlx_key_hook(a.win, &key_hook, &a);
+	mlx_hook(a.win, ON_KEYDOWN, 0, &key_down, &a);
 	mlx_hook(a.win, ON_MOUSEDOWN, 0, &mouse_down, &a);
 //	mlx_hook(a.win, ON_MOUSEMOVE, 0, &mouse_move, &a);
+	mlx_loop_hook(a.mlx, &loop_render, &a);
 	mlx_loop(a.mlx);
 }
