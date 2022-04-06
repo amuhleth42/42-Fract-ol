@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:23:34 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/06 15:40:49 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:30:52 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	zoom(t_data *a, int x, int y, double i)
 	//printf("%f\n", a->view.offsetx);
 	//printf("%f\n", a->view.offsety);
 }
-
 void	render(t_data *a)
 {
 	int	y;

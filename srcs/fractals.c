@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:49:13 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/06 15:40:26 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/06 16:41:55 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mandelbrot(void *b, int x, int y)
 		i++;
 	}
 	if (i != a->iter_max)
-		put_pixel_to_img(&a->i, x, y, get_color(COLOR1, COLOR2, (float)i / a->iter_max));
+		put_pixel_to_img(&a->i, x, y, rainbow_gradient((float)i / a->iter_max));
 }
 
 void	animation_julia(t_data *a, double r, double i)
@@ -69,5 +69,5 @@ void	julia(void *b, int x, int y)
 		i++;
 	}
 	if (i != a->iter_max)
-		put_pixel_to_img(&a->i, x, y, get_color(COLOR1, COLOR2, (float)i / a->iter_max));
+		put_pixel_to_img(&a->i, x, y, rainbow_gradient((float)i / a->iter_max));
 }

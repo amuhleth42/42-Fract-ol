@@ -8,8 +8,12 @@
 # define WIN_WIDTH 1920
 # define WIN_HEIGHT 1080
 
-# define COLOR1 0x2A0154
-# define COLOR2 0xB166E1
+# define COLOR1 0x200056
+# define COLOR2 0x963D97
+# define COLOR3 0xE03A3C
+# define COLOR4 0xF6821F
+# define COLOR5 0xFCB827
+# define COLOR6 0xFFFFFF
 
 # define SCROLL_UP 4
 # define SCROLL_DOWN 5
@@ -92,5 +96,6 @@ void	render(t_data *a);
 void	zoom(t_data *a, int x, int y, double i);
 
 int		get_color(int c1, int c2, float shade);
+int		rainbow_gradient(float shade);
 
 #endif
