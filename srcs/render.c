@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:23:34 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 18:32:30 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:40:49 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	render(t_data *a)
 		x = 0;
 		while (x < WIN_WIDTH)
 		{
-			julia(a, x, y);
+			a->algo(a, x, y);
+			//julia(a, x, y);
 			//mandelbrot(a, x, y);
 			x++;
 		}

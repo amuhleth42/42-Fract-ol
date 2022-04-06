@@ -50,6 +50,8 @@ typedef struct s_view
 	int		animation;
 }			t_view;
 
+typedef void (*func)(void *a, int x, int y);
+
 typedef struct s_mouse
 {
 	int	left_down;
@@ -69,6 +71,7 @@ typedef struct s_data
 	int		iter_max;
 	t_z		stock_julia;
 	t_z		c_julia;
+	func	algo;
 }			t_data;
 
 void	put_pixel_to_img(t_img *i, int x, int y, int color);
@@ -79,8 +82,8 @@ int		mouse_down(int button, int x, int y, t_data *a);
 
 t_z		convert_pixel_to_z(t_data *a, int x, int y);
 
-void	mandelbrot(t_data *a, int x, int y);
-void	julia(t_data *a, int x, int y);
+void	mandelbrot(void *b, int x, int y);
+void	julia(void *b, int x, int y);
 void	animation_julia(t_data *a, double r, double i);
 
 void	clear_img(t_img *i);

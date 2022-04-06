@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 18:36:14 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:34:57 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,22 @@ void	init_view(t_data *a)
 
 void	handle_no_arg(void)
 {
-	//to do print error help message
+	ft_putstr_fd("Please enter an argument : julia or mandelbrot\n", 2);
 	exit(EXIT_SUCCESS);
+}
+
+void	parser(t_data *a, char *input)
+{
+	if (ft_strncmp(input, "mandelbrot", 10) == 0)
+		a->algo = &mandelbrot;
+	else if (ft_strncmp(input, "julia", 5) == 0)
+		a->algo = &julia;
+	else
+	{
+		ft_putstr_fd("error : invalid argument\n", 1);
+		ft_putstr_fd("Please enter a valid argument : julia or mandelbrot\n", 2);
+		exit(EXIT_SUCCESS);
+	}
 }
 
 int	main(int argc, char **argv)
@@ -43,6 +57,7 @@ int	main(int argc, char **argv)
 	(void) argv;
 	if (argc != 2)
 		handle_no_arg();
+	parser(&a, argv[1]);
 	a.mlx = mlx_init();
 	a.win = mlx_new_window(a.mlx, WIN_WIDTH, WIN_HEIGHT, "FRACTOL");
 	a.i.img = mlx_new_image(a.mlx, WIN_WIDTH, WIN_HEIGHT);

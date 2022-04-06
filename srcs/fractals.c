@@ -6,21 +6,22 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:49:13 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/05 17:57:25 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/06 15:40:26 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 #include <stdio.h>
 
-void	mandelbrot(t_data *a, int x, int y)
+void	mandelbrot(void *b, int x, int y)
 {
+	t_data	*a;
 	t_z		c;
 	t_z		z;
 	int		i;
 	double	tmp;
 
-	(void) a;
+	a = b;
 	c = convert_pixel_to_z(a, x, y);
 	z.r = 0;
 	z.i = 0;
@@ -45,18 +46,17 @@ void	animation_julia(t_data *a, double r, double i)
 	ii += i;
 	a->c_julia.r = cos(rr);
 	a->c_julia.i = sin(ii);
-	//printf("c.r = %f\n", a->c_julia.r);
-	//printf("c.i = %f\n", a->c_julia.i);
 }
 
-void	julia(t_data *a, int x, int y)
+void	julia(void *b, int x, int y)
 {
+	t_data *a;
 	t_z		c;
 	t_z		z;
 	int		i;
 	double	tmp;
 
-	(void) a;
+	a = b;
 	z = convert_pixel_to_z(a, x, y);
 	c.r = a->c_julia.r;
 	c.i = a->c_julia.i;
