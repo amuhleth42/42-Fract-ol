@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 18:23:34 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/06 16:30:52 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:31:06 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@ t_z	convert_pixel_to_z(t_data *a, int x, int y)
 {
 	t_z	p;
 
-	p.r = ((double)x / WIN_HEIGHT) * (a->view.xmax - a->view.xmin) / a->view.zoom + a->view.xmin + a->view.offsetx;
-	p.i = ((double)y / WIN_HEIGHT) * (a->view.ymax - a->view.ymin) / a->view.zoom + a->view.ymin + a->view.offsety;
+	p.r = ((double)x / WIN_HEIGHT) * (a->view.xmax - a->view.xmin)
+		/ a->view.zoom + a->view.xmin + a->view.offsetx;
+	p.i = ((double)y / WIN_HEIGHT) * (a->view.ymax - a->view.ymin)
+		/ a->view.zoom + a->view.ymin + a->view.offsety;
 	return (p);
 }
 
@@ -35,9 +37,8 @@ void	zoom(t_data *a, int x, int y, double i)
 	a->view.offsetx -= ((double)x / WIN_HEIGHT) * (new_w - w);
 	a->view.offsety -= ((double)y / WIN_HEIGHT) * (new_h - h);
 	a->view.zoom *= i;
-	//printf("%f\n", a->view.offsetx);
-	//printf("%f\n", a->view.offsety);
 }
+
 void	render(t_data *a)
 {
 	int	y;
@@ -57,8 +58,6 @@ void	render(t_data *a)
 		while (x < WIN_WIDTH)
 		{
 			a->algo(a, x, y);
-			//julia(a, x, y);
-			//mandelbrot(a, x, y);
 			x++;
 		}
 		y++;

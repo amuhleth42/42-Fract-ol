@@ -6,12 +6,11 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:30:33 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/06 16:39:50 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/08 18:29:07 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
-
 
 int	mix_color(int c1, int c2, float shade)
 {

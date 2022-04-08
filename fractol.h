@@ -23,7 +23,8 @@ enum
 	ON_KEYDOWN = 2,
 	ON_MOUSEDOWN = 4,
 	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6
+	ON_MOUSEMOVE = 6,
+	ON_DESTROY = 17
 };
 
 typedef struct s_z
@@ -83,6 +84,8 @@ void	put_pixel_to_img(t_img *i, int x, int y, int color);
 int		key_hook(int key, t_data *a);
 int		key_down(int key, t_data *a);
 int		mouse_down(int button, int x, int y, t_data *a);
+int		mouse_up(int button, int x, int y, t_data *a);
+int		mouse_move(int x, int y, t_data *a);
 
 t_z		convert_pixel_to_z(t_data *a, int x, int y);
 
