@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:49:13 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/08 18:28:42 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:12:07 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	animation_julia(t_data *a, double r, double i)
 
 	rr += r;
 	ii += i;
-	a->c_julia.r = cos(rr);
-	a->c_julia.i = sin(ii);
+	a->c_julia.r = 0.7885 * cos(rr);
+	a->c_julia.i = 0.7885 * sin(ii);
 }
 
 void	julia(void *b, int x, int y)

@@ -6,7 +6,7 @@
 /*   By: amuhleth <marvin@42lausanne.ch>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/05 15:21:25 by amuhleth          #+#    #+#             */
-/*   Updated: 2022/04/08 18:50:49 by amuhleth         ###   ########.fr       */
+/*   Updated: 2022/04/12 19:06:07 by amuhleth         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	main(int argc, char **argv)
 	a.i.img = mlx_new_image(a.mlx, WIN_WIDTH, WIN_HEIGHT);
 	a.i.addr = mlx_get_data_addr(a.i.img, &a.i.bpp, &a.i.ll, &a.i.endian);
 	init_view(&a);
-	animation_julia(&a, 3.3, 3.3);
+	animation_julia(&a, 0, 0);
 	mlx_key_hook(a.win, &key_hook, &a);
 	mlx_hook(a.win, ON_KEYDOWN, 0, &key_down, &a);
 	mlx_hook(a.win, ON_MOUSEDOWN, 0, &mouse_down, &a);
