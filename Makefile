@@ -4,21 +4,26 @@ FLAGS		= -Wall -Wextra -Werror -Ofast
 INCL		= -I. -I./mlx -I./libft
 LIB			= -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit
 
-SRCS		= $(addprefix srcs/,	\
-			  main.c				\
+SRCS_DIR	= srcs
+OBJS_DIR	= $(shell mkdir -p objs && printf "objs")
+
+SRCS		= main.c				\
 			  draw.c				\
 			  mouse.c				\
 			  color.c				\
 			  render.c				\
 			  fractals.c			\
-			  keyboard.c)
+			  keyboard.c
 
-
+OBJS	= $(SRCS:%.c=$(OBJS_DIR)/%.o)
 
 all :		$(NAME)
 
-$(NAME) :	libft.a libmlx.a
-	gcc $(FLAGS) $(INCL) $(LIB) $(SRCS) -o $(NAME)
+$(OBJS_DIR)/%.o :	$(SRCS_DIR)/%.c
+	gcc $(FLAGS) $(INCL) -c $< -o $@
+
+$(NAME) :	libft.a libmlx.a $(OBJS)
+	gcc $(FLAGS) $(INCL) $(LIB) $(OBJS) -o $(NAME)
 
 libft.a :
 	make -C ./libft
@@ -29,6 +34,7 @@ libmlx.a :
 clean :
 	make fclean -C ./libft
 	make clean -C ./mlx
+	rm -rf $(OBJS_DIR)
 	rm $(NAME)
 
 fclean :	clean
